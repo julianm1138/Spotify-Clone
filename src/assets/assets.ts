@@ -183,4 +183,20 @@ export const songsData = [
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:35",
   },
+  {
+    id: 8,
+    name: "Song Nine",
+    image: img6,
+    file: song3,
+    desc: "Put a smile on your face with these happy tunes",
+    duration: "2:20",
+  },
+  {
+    id: 9,
+    name: "Song Ten",
+    image: img13,
+    file: song1,
+    desc: "Put a smile on your face with these happy tunes",
+    duration: "2:20",
+  },
 ];

@@ -1,7 +1,7 @@
 import { createContext, useRef, useState, useEffect } from "react";
 import { songsData } from "../assets/assets";
 
-interface PlayerContextTypes {
+export interface PlayerContextTypes {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   seekBar: React.RefObject<HTMLHRElement | null>;
   seekBg: React.RefObject<HTMLDivElement | null>;

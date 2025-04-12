@@ -1,8 +1,14 @@
-import { useContext } from "react";
-import { PlayerContext } from "../context/PlayerContext";
+import { usePlayerContext } from "../Hooks";
 
-export default function SongCard({ name, image, desc, id }) {
-  const { playWithId } = useContext(PlayerContext);
+interface SongCardProps {
+  name: string;
+  image: string;
+  desc: string;
+  id: number;
+}
+
+export default function SongCard({ name, image, desc, id }: SongCardProps) {
+  const { playWithId } = usePlayerContext();
   return (
     <div
       onClick={() => playWithId(id)}

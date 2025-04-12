@@ -5,17 +5,17 @@ import { useRef, useEffect } from "react";
 import { albumsData } from "../assets/assets";
 
 export default function Display() {
-  const displayRef = useRef(null);
+  const displayRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isAlbum = location.pathname.includes("album");
   const albumId = isAlbum ? location.pathname.slice(-1) : "";
   const bgColor = albumsData[Number(albumId)].bgColor;
 
   useEffect(() => {
-    if (isAlbum) {
+    if (displayRef.current) {
       displayRef.current.style.background = `linear-gradient(${bgColor}, #121212)`;
     } else {
-      displayRef.current.style.background = `#121212`;
+      displayRef.current!.style.background = `#121212`;
     }
   });
 

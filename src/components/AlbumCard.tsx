@@ -1,6 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-export default function AlbumCard({ image, name, desc, id }) {
+interface AlbumCardProps {
+  image: string;
+  name: string;
+  desc: string;
+  id: number;
+}
+
+export default function AlbumCard({ image, name, desc, id }: AlbumCardProps) {
   const navigate = useNavigate();
   return (
     <div
