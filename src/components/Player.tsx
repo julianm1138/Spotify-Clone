@@ -1,13 +1,5 @@
-import { songsData } from "../assets/assets";
 import { assets } from "../assets/assets";
-
-const playerIcons = Object.entries({
-  shuffle_icon: assets.shuffle_icon,
-  prev_icon: assets.prev_icon,
-  play_icon: assets.play_icon,
-  next_icon: assets.next_icon,
-  loop_icon: assets.loop_icon,
-});
+import { usePlayerContext } from "../Hooks";
 
 const miscIcons = Object.entries({
   plays_icon: assets.plays_icon,
@@ -20,36 +12,102 @@ const miscIcons = Object.entries({
 });
 
 export default function Player() {
+  const {
+    seekBar,
+    seekBg,
+    playerStatus,
+    play,
+    pause,
+    track,
+    time,
+    previous,
+    next,
+    seekSong,
+  } = usePlayerContext();
   return (
     <div className="text-white h-[10%] bg-black flex justify-between items-center px-4 ">
       <div className="hidden lg:flex items-center gap-4">
-        <img className="w-12" src={songsData[0].image} alt="song data" />
+        <img className="w-12" src={track.image} alt="song data" />
+
         <div className="w-[100px]">
-          <p>{songsData[0].name}</p>
+          <p>{track.name}</p>
           <p className="overflow-hidden whitespace-nowrap text-ellipsis">
-            {songsData[0].desc}
+            {track.desc}
           </p>
         </div>
       </div>
       <div className="flex flex-col items-center gap-1 m-auto ">
-        <div className="flex gap-4">
-          {playerIcons.map(([name, icon]) => (
+        <div className="flex gap-4 items-center">
+          <img
+            className="w-4 cursor-pointer hover:scale-115"
+            src={assets.shuffle_icon}
+            alt="shuffle"
+          />
+          <img
+            onClick={previous}
+            className="w-4 cursor-pointer hover:scale-115"
+            src={assets.prev_icon}
+            alt="previous"
+          />
+
+          {playerStatus ? (
             <img
-              key={name}
-              className="w-4 cursor-pointer hover:scale-120 active:text-gray-800 "
-              src={icon}
-              aria-label={name.replace(/_/g, " ")}
-              alt={name.replace(/_/g, " ")}
+              className="w-4 cursor-pointer hover:scale-115"
+              src={assets.pause_icon}
+              alt="pause"
+              onClick={pause}
             />
-          ))}
+          ) : (
+            <img
+              className="w-4 cursor-pointer hover:scale-115"
+              src={assets.play_icon}
+              alt="play"
+              onClick={play}
+            />
+          )}
+
+          <img
+            onClick={next}
+            className="w-4 cursor-pointer hover:scale-115"
+            src={assets.next_icon}
+            alt="next"
+          />
+          <img
+            className="w-4 cursor-pointer hover:scale-115"
+            src={assets.loop_icon}
+            alt="loop"
+          />
         </div>
 
         <div className="flex items-center gap-5">
-          <p className="text-sm">0:54</p>
-          <div className="w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer">
-            <hr className="h-1 border-none w-0 bg-blue-800 rounded-full" />
+          <p className="text-sm ">
+            {isNaN(time.currentTime.minute)
+              ? "0"
+              : String(time.currentTime.minute).padStart(1, "0")}
+            :
+            {isNaN(time.currentTime.second)
+              ? ""
+              : String(time.currentTime.second).padStart(2, "0")}
+          </p>
+          <div
+            ref={seekBg}
+            onClick={seekSong}
+            className="w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer"
+          >
+            <hr
+              ref={seekBar}
+              className="h-1 border-none w-0 bg-blue-800 rounded-full"
+            />
           </div>
-          <p className="text-sm">3:28</p>
+          <p className="text-sm">
+            {isNaN(time.totalTime.minute)
+              ? "0"
+              : String(time.totalTime.minute).padStart(1, "0")}
+            :
+            {isNaN(time.totalTime.second)
+              ? "00"
+              : String(time.totalTime.second).padStart(2, "0")}
+          </p>
         </div>
       </div>
 
@@ -70,7 +128,7 @@ export default function Player() {
             </div>
           ) : (
             <img
-              className="w-4 cursor-pointer"
+              className="w-4 cursor-pointer hover:scale-110 filter brightness-75 hover:brightness-125"
               key={name}
               src={icon}
               aria-label={name.replace(/_/g, " ")}

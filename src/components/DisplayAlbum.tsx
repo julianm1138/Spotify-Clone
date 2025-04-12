@@ -1,13 +1,20 @@
-import { albumsData } from "../assets/assets";
+import { albumsData, songsData } from "../assets/assets";
 import Navbar from "./Navbar";
 import { useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 
+import { usePlayerContext } from "../Hooks";
+
 export default function DisplayAlbum() {
   const { id } = useParams();
-  const albumData = albumsData[id];
-  console.log(id);
-  console.log(albumData);
+
+  if (id === undefined) {
+    throw new Error("Error: No album ID provided.");
+  }
+
+  const albumData = albumsData[parseInt(id)];
+
+  const { playWithId } = usePlayerContext();
 
   return (
     <>
@@ -26,15 +33,40 @@ export default function DisplayAlbum() {
           <h4>{albumData.desc}</h4>
           <p className="mt-1">
             <img
-              className="inline-block w-5"
+              className="inline-block w-5 mr-2"
               src={assets.spotify_logo}
               alt="spotify logo"
             />
-            <b>Spotify</b>• 12,939 likes • <b>50 songs,</b>
+            <b>Spotify</b> • 12,939 likes • <b>50 songs, </b>
             about 2 hours and 30 minutes
           </p>
         </div>
       </div>
+      <div className="grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]">
+        <p>
+          <b className="mr-5">#</b>Title
+        </p>
+        <p>Album</p>
+        <p className="hidden sm:block">Date Added</p>
+        <img className="w-4 m-auto" src={assets.clock_icon} alt="clock icon" />
+      </div>
+      <hr />
+      {songsData.map((song, index) => (
+        <div
+          onClick={() => playWithId(song.id)}
+          key={index}
+          className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer"
+        >
+          <p className="text-white">
+            <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
+            <img className="w-10 mr-5 inline " src={song.image} />
+            {song.name}
+          </p>
+          <p className="text-[0.93rem]">{albumData.name}</p>
+          <p className="text-[0.93rem] hidden sm:block">7 days ago</p>
+          <p className="text-[0.93rem] text-center">{song.duration}</p>
+        </div>
+      ))}
     </>
   );
 }
