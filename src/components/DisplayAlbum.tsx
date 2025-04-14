@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import { useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 
-import { usePlayerContext } from "../Hooks";
+import { usePlayerContext } from "../hooks/playerContext";
 
 export default function DisplayAlbum() {
   const { id } = useParams();

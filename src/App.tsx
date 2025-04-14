@@ -1,7 +1,7 @@
 import Display from "./components/Display";
 import Player from "./components/Player";
 import Sidebar from "./components/Sidebar";
-import { usePlayerContext } from "./Hooks";
+import { usePlayerContext } from "./hooks/playerContext";
 
 export default function App() {
   const { audioRef, track } = usePlayerContext();

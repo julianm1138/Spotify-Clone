@@ -1,4 +1,4 @@
-import { usePlayerContext } from "../Hooks";
+import { usePlayerContext } from "../hooks/playerContext";
 
 interface SongCardProps {
   name: string;

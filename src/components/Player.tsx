@@ -1,5 +1,5 @@
 import { assets } from "../assets/assets";
-import { usePlayerContext } from "../Hooks";
+import { usePlayerContext } from "../hooks/playerContext";
 
 const miscIcons = Object.entries({
   plays_icon: assets.plays_icon,
