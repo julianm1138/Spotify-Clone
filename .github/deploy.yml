@@ -1,0 +1,42 @@
+name: Deploy React Spotify Clone to ACA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2. Log in to Azure Container Registry
+      - name: Log in to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.ACR_USER }}
+          password: ${{ secrets.ACR_PASS }}
+
+      # 3. Build Docker image
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest .
+
+      # 4. Push Docker image to ACR
+      - name: Push Docker image
+        run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest
+
+      # 5. Update ACA with new image
+      - name: Deploy to Azure Container Apps
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.80.0
+          inlineScript: |
+            az containerapp update `
+              --name ${{ secrets.WEBAPP_NAME }} `
+              --resource-group ${{ secrets.RESOURCE_GROUP }} `
+              --image ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest
