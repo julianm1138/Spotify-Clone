@@ -22,21 +22,24 @@ jobs:
           username: ${{ secrets.ACR_USER }}
           password: ${{ secrets.ACR_PASS }}
 
-      # 3. Build Docker image
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest .
+      # 3. Build Docker image with auto version tag
+      - name: Build Docker image with timestamp tag
+        run: |
+          IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:$IMAGE_TAG .
 
       # 4. Push Docker image to ACR
       - name: Push Docker image
-        run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest
+        run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:${{ env.IMAGE_TAG }}
 
-      # 5. Update ACA with new image
+      # 5. Update ACA with the new versioned image
       - name: Deploy to Azure Container Apps
         uses: azure/CLI@v1
         with:
           azcliversion: 2.80.0
           inlineScript: |
-            az containerapp update `
-              --name ${{ secrets.WEBAPP_NAME }} `
-              --resource-group ${{ secrets.RESOURCE_GROUP }} `
-              --image ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:latest
+            az containerapp update \
+              --name ${{ secrets.WEBAPP_NAME }} \
+              --resource-group ${{ secrets.RESOURCE_GROUP }} \
+              --image ${{ secrets.ACR_NAME }}.azurecr.io/spotify-clone:${{ env.IMAGE_TAG }}
