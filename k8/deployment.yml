@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spotify-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spotify
+  template:
+    metadata:
+      labels:
+        app: spotify
+    spec:
+      containers:
+        - name: spotify
+          image: spotifyacr123.azurecr.io/spotify-clone:latest
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: acr-creds

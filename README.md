@@ -1,21 +1,77 @@
-A Vite + TypeScript React application that replicates core Spotify functionality. The app showcases front-end capabilities while serving as a vehicle to demonstrate cloud infrastructure management, deployment automation, and monitoring.
+A Vite + TypeScript React application that replicates core Spotify functionality. The app showcases front-end capabilities while serving as a vehicle to demonstrate cloud infrastructure management, deployment automation, monitoring, containerization using Docker, and container orchestration using Kubernetes.
 
-## Architecture
+## Architecture Overview
 
-1. **Code Repository:** GitHub
-   - All source code is pushed to `main` branch.
-2. **CI/CD Pipeline:** GitHub Actions
-   - Builds Docker image.
-   - Tags image automatically with timestamp.
-   - Pushes image to Azure Container Registry (ACR).
-3. **Container Registry:** Azure Container Registry (ACR)
-   - Stores versioned Docker images.
-4. **Cloud Deployment:** Azure Container Apps (ACA)
-   - Pulls Docker image from ACR.
-   - Runs the container.
-   - Health checks ensure uptime.
-5. **End Users:** Browser
-   - Accesses the live application via public ACA endpoint.
+# Code Repository: GitHub
+
+All source code is pushed to the main branch.
+
+CI/CD Pipeline: GitHub Actions
+
+Builds Docker images.
+
+Tags images automatically with timestamps.
+
+Pushes images to Azure Container Registry (ACR).
+
+Container Registry: Azure Container Registry (ACR)
+
+Stores versioned Docker images for both ACA and Kubernetes deployments.
+
+Cloud Deployment: Azure Container Apps (ACA) & Kubernetes (local WSL2 + KIND)
+
+ACA pulls Docker images from ACR and runs containers in the cloud.
+
+Kubernetes allows local orchestration of Docker containers for testing and demonstration.
+
+Health checks and scaling can be managed via Kubernetes Deployments and Services.
+
+End Users: Browser
+
+Access the live application via the public ACA endpoint, or KIND endpoint.
+
+Set Up Kubernetes Cluster:
+
+Installed KIND (Kubernetes in Docker) within WSL2 (I used Ubuntu terminal) for Windows.
+
+Cluster provides a local environment to test container deployments without using cloud resources.
+
+Containerization:
+
+Docker images built from local code.
+
+Tagged and optionally pushed to Azure Container Registry.
+
+Kubernetes Resources Created:
+
+deployment.yml: defines the deployment of the Spotify container.
+
+Configures replicas, container image, ports, and resource specs.
+
+service.yml: exposes the deployment via a NodePort service for local access.
+
+docker-registry secret: allows Kubernetes to pull images from Azure Container Registry.
+
+Commands Used:
+
+# Apply Kubernetes manifests
+
+kubectl apply -f k8/deployment.yml
+kubectl apply -f k8/service.yml
+
+# Check pods and service status
+
+kubectl get pods
+kubectl get svc
+
+# View logs for troubleshooting
+
+kubectl logs -f <pod-name>
+kubectl describe pod <pod-name>
+
+Logs and describe commands helped diagnose container start issues and verify correct image usage.
+
+Mimics cloud deployment behaviors for CI/CD, scaling, and container orchestration.
 
 ## Live Demo: Publicly Accessible Azure Container App
 
