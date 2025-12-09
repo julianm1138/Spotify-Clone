@@ -1,77 +1,77 @@
-A Vite + TypeScript React application that replicates core Spotify functionality. The app showcases front-end capabilities while serving as a vehicle to demonstrate cloud infrastructure management, deployment automation, monitoring, containerization using Docker, and container orchestration using Kubernetes.
+Spotify Clone (Vite + TypeScript React)
 
-## Architecture Overview
+A Vite + TypeScript React application that replicates core Spotify functionality. This project showcases front-end development skills while also demonstrating containerization, cloud deployment, CI/CD pipelines, monitoring, and Kubernetes-based container orchestration.
 
-# Code Repository: GitHub
+Architecture Overview
 
-All source code is pushed to the main branch.
+Code Repository – GitHub
 
-CI/CD Pipeline: GitHub Actions
+All source code is maintained in the main branch.
 
-Builds Docker images.
+CI/CD Pipeline – GitHub Actions
 
-Tags images automatically with timestamps.
+Automatically builds Docker images.
+
+Tags images with timestamps for versioning.
 
 Pushes images to Azure Container Registry (ACR).
 
-Container Registry: Azure Container Registry (ACR)
+Container Registry – Azure Container Registry (ACR)
 
-Stores versioned Docker images for both ACA and Kubernetes deployments.
+Stores versioned Docker images for both cloud deployment and local Kubernetes testing.
 
-Cloud Deployment: Azure Container Apps (ACA) & Kubernetes (local WSL2 + KIND)
+Cloud Deployment – Azure Container Apps & Local Kubernetes
 
-ACA pulls Docker images from ACR and runs containers in the cloud.
+Azure Container Apps (ACA): pulls Docker images from ACR and runs them in the cloud.
 
-Kubernetes allows local orchestration of Docker containers for testing and demonstration.
+Kubernetes (KIND + WSL2): provides a local environment to test deployments, manage container scaling, and inspect logs.
 
-Health checks and scaling can be managed via Kubernetes Deployments and Services.
+Health checks and replica management are handled via Kubernetes Deployments and Services.
 
-End Users: Browser
+End Users – Browser
 
-Access the live application via the public ACA endpoint, or KIND endpoint.
+Access the live application through the ACA public endpoint or locally via Kubernetes NodePort.
 
-Set Up Kubernetes Cluster:
+Kubernetes Deployment (Local)
 
-Installed KIND (Kubernetes in Docker) within WSL2 (I used Ubuntu terminal) for Windows.
+This project includes a full Kubernetes setup to practice DevOps and container orchestration skills.
 
-Cluster provides a local environment to test container deployments without using cloud resources.
+Setup
 
-Containerization:
+Installed KIND (Kubernetes in Docker) within WSL2 (Ubuntu).
 
-Docker images built from local code.
+Provides a lightweight local cluster to test deployments without using cloud resources.
 
-Tagged and optionally pushed to Azure Container Registry.
+Containerization
 
-Kubernetes Resources Created:
+Docker images are built from local code and optionally pushed to ACR for Kubernetes to pull.
 
-deployment.yml: defines the deployment of the Spotify container.
+Kubernetes Resources
 
-Configures replicas, container image, ports, and resource specs.
+deployment.yml – defines the Spotify container deployment, including replicas, ports, and resource specifications.
 
-service.yml: exposes the deployment via a NodePort service for local access.
+service.yml – exposes the deployment via a NodePort for local access.
 
-docker-registry secret: allows Kubernetes to pull images from Azure Container Registry.
+Docker registry secret – allows Kubernetes to pull images securely from ACR.
 
-Commands Used:
+Common Commands
 
-# Apply Kubernetes manifests
+# Deploy resources
 
 kubectl apply -f k8/deployment.yml
 kubectl apply -f k8/service.yml
 
-# Check pods and service status
+# Check pod and service status
 
 kubectl get pods
 kubectl get svc
 
-# View logs for troubleshooting
+# View logs and troubleshoot
 
 kubectl logs -f <pod-name>
 kubectl describe pod <pod-name>
 
-Logs and describe commands helped diagnose container start issues and verify correct image usage.
-
-Mimics cloud deployment behaviors for CI/CD, scaling, and container orchestration.
+These commands allow inspection of container logs, verification of image usage, and testing of scaling and deployment behaviors similar to a cloud environment.
 
 ## Live Demo: Publicly Accessible Azure Container App
 
