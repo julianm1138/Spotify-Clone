@@ -2,76 +2,75 @@ Spotify Clone (Vite + TypeScript React)
 
 A Vite + TypeScript React application that replicates core Spotify functionality. This project showcases front-end development skills while also demonstrating containerization, cloud deployment, CI/CD pipelines, monitoring, and Kubernetes-based container orchestration.
 
-Architecture Overview
+# Spotify Clone (Vite + TypeScript React)
 
-Code Repository – GitHub
+A **Vite + TypeScript React** application that replicates core Spotify functionality.  
+This project demonstrates **front-end development skills** while also showcasing **containerization, cloud deployment, CI/CD pipelines, monitoring, and Kubernetes-based container orchestration**.
 
-All source code is maintained in the main branch.
+---
 
-CI/CD Pipeline – GitHub Actions
+## Architecture Overview
 
-Automatically builds Docker images.
+### 1. Code Repository – GitHub
 
-Tags images with timestamps for versioning.
+- All source code is maintained in the `main` branch.
 
-Pushes images to Azure Container Registry (ACR).
+### 2. CI/CD Pipeline – GitHub Actions
 
-Container Registry – Azure Container Registry (ACR)
+- Automatically builds Docker images.
+- Tags images with timestamps for versioning.
+- Pushes images to **Azure Container Registry (ACR)**.
 
-Stores versioned Docker images for both cloud deployment and local Kubernetes testing.
+### 3. Container Registry – Azure Container Registry (ACR)
 
-Cloud Deployment – Azure Container Apps & Local Kubernetes
+- Stores versioned Docker images for both cloud deployment and local Kubernetes testing.
 
-Azure Container Apps (ACA): pulls Docker images from ACR and runs them in the cloud.
+### 4. Cloud Deployment – Azure Container Apps & Local Kubernetes
 
-Kubernetes (KIND + WSL2): provides a local environment to test deployments, manage container scaling, and inspect logs.
+- **Azure Container Apps (ACA):** pulls Docker images from ACR and runs them in the cloud.
+- **Kubernetes (KIND + WSL2):** provides a local environment to test deployments, manage container scaling, and inspect logs.
+- Health checks and replica management are handled via Kubernetes **Deployments** and **Services**.
 
-Health checks and replica management are handled via Kubernetes Deployments and Services.
+### 5. End Users – Browser
 
-End Users – Browser
+- Access the live application through the ACA public endpoint or locally via Kubernetes NodePort.
 
-Access the live application through the ACA public endpoint or locally via Kubernetes NodePort.
+---
 
-Kubernetes Deployment (Local)
+## Kubernetes Deployment (Local)
 
-This project includes a full Kubernetes setup to practice DevOps and container orchestration skills.
+This project includes a full Kubernetes setup to practice **DevOps** and **container orchestration** skills.
 
-Setup
+### Setup
 
-Installed KIND (Kubernetes in Docker) within WSL2 (Ubuntu).
+- Installed **KIND (Kubernetes in Docker)** within WSL2 (Ubuntu).
+- Provides a lightweight local cluster to test deployments without cloud resources.
 
-Provides a lightweight local cluster to test deployments without using cloud resources.
+### Containerization
 
-Containerization
+- Docker images are built from local code and optionally pushed to **ACR** for Kubernetes to pull.
 
-Docker images are built from local code and optionally pushed to ACR for Kubernetes to pull.
+### Kubernetes Resources
 
-Kubernetes Resources
+- **`deployment.yml`** – defines the Spotify container deployment, including replicas, ports, and resource specifications.
+- **`service.yml`** – exposes the deployment via a NodePort for local access.
+- **Docker registry secret** – allows Kubernetes to pull images securely from **ACR**.
 
-deployment.yml – defines the Spotify container deployment, including replicas, ports, and resource specifications.
+### Common Commands
 
-service.yml – exposes the deployment via a NodePort for local access.
-
-Docker registry secret – allows Kubernetes to pull images securely from ACR.
-
-Common Commands
-
+```bash
 # Deploy resources
-
 kubectl apply -f k8/deployment.yml
 kubectl apply -f k8/service.yml
 
 # Check pod and service status
-
 kubectl get pods
 kubectl get svc
 
 # View logs and troubleshoot
-
 kubectl logs -f <pod-name>
 kubectl describe pod <pod-name>
 
-These commands allow inspection of container logs, verification of image usage, and testing of scaling and deployment behaviors similar to a cloud environment.
 
 ## Live Demo: Publicly Accessible Azure Container App
 
@@ -111,3 +110,4 @@ Containerization: Docker
 Cloud: Azure Container Registry & Azure Container Apps
 CI/CD: GitHub Actions
 Monitoring: ACA logs + metrics
+```
