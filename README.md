@@ -99,6 +99,10 @@ In production, a managed identity or service principal should be used.
 
 ![CPU + Memory Usage + Network Requests](screenshots/metrics4.png)
 
+## Kubernetes KIND Logs
+
+![K8 Logs](screenshots/k8logs1.png)
+
 ## Tech Stack
 
 - Frontend: React + TypeScript + Vite
