@@ -35,7 +35,7 @@ This project demonstrates **front-end development skills** while also showcasing
 
 ## Kubernetes Deployment (Local)
 
-This project includes a full Kubernetes setup to practice **DevOps** and **container orchestration** skills.
+This project includes a full Kubernetes setup.
 
 ### Setup
 
@@ -99,10 +99,11 @@ In production, a managed identity or service principal should be used.
 
 ![CPU + Memory Usage + Network Requests](screenshots/metrics4.png)
 
-## Complete Tech Stack
+## Tech Stack
 
-Frontend: React + TypeScript + Vite
-Containerization: Docker
-Cloud: Azure Container Registry & Azure Container Apps
-CI/CD: GitHub Actions
-Monitoring: ACA logs + metrics
+- Frontend: React + TypeScript + Vite
+- Containerization: Docker
+- Cloud: Azure Container Registry & Azure Container Apps
+  -- Local Orchestration: Kubernetes (KIND + WSL2)
+- CI/CD: GitHub Actions
+- Monitoring: ACA logs, Kubernetes logs, metrics
