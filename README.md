@@ -1,7 +1,3 @@
-Spotify Clone (Vite + TypeScript React)
-
-A Vite + TypeScript React application that replicates core Spotify functionality. This project showcases front-end development skills while also demonstrating containerization, cloud deployment, CI/CD pipelines, monitoring, and Kubernetes-based container orchestration.
-
 # Spotify Clone (Vite + TypeScript React)
 
 A **Vite + TypeScript React** application that replicates core Spotify functionality.  
@@ -70,7 +66,7 @@ kubectl get svc
 # View logs and troubleshoot
 kubectl logs -f <pod-name>
 kubectl describe pod <pod-name>
-
+```
 
 ## Live Demo: Publicly Accessible Azure Container App
 
@@ -110,4 +106,3 @@ Containerization: Docker
 Cloud: Azure Container Registry & Azure Container Apps
 CI/CD: GitHub Actions
 Monitoring: ACA logs + metrics
-```
