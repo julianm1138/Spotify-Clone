@@ -99,9 +99,12 @@ In production, a managed identity or service principal should be used.
 
 ![CPU + Memory Usage + Network Requests](screenshots/metrics4.png)
 
-## Kubernetes KIND Logs
+## Kubernetes KIND Screenshots
 
 ![K8 Logs](screenshots/k8logs1.png)
+![K8 Logs](screenshots/k8podrunning.png)
+![K8 Logs](screenshots/k8portforward.png)
+![K8 Logs](screenshots/k8scaled.png)
 
 ## Tech Stack
 
@@ -111,3 +114,7 @@ In production, a managed identity or service principal should be used.
   -- Local Orchestration: Kubernetes (KIND + WSL2)
 - CI/CD: GitHub Actions
 - Monitoring: ACA logs, Kubernetes logs, metrics
+
+## Grafa Metrics
+
+![K8 Logs](screenshots/spotifyO11ygrafa.png)
