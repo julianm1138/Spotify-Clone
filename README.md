@@ -115,6 +115,6 @@ In production, a managed identity or service principal should be used.
 - CI/CD: GitHub Actions
 - Monitoring: ACA logs, Kubernetes logs, metrics
 
-## Grafa Metrics
+## Grafana Metrics
 
 ![K8 Logs](screenshots/spotifyO11ygrafa.png)
